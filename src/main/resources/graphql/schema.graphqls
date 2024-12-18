@@ -1,0 +1,41 @@
+type Query {
+    getAllHouseholds: [Household!]!
+    getAllPetsByAnimalType(animalType: String!): [Pet!]!
+    getHousehold(id: ID!): Household
+    getPet(id: ID!): Pet
+    getPetStatistics: PetStatistics!
+}
+
+type Mutation {
+    createNewHousehold(input: HouseholdInput!): Household!
+    deleteHouseholdById(id: ID!): Boolean!
+    deletePetById(id: ID!): Boolean!
+}
+
+type Household {
+    eircode: String!
+    num_occupants: Int! # num_occupants + max and owner occupied were ommited in chatGPTs code, added back on my own
+    max_num_occupants: Int!
+    owner_occupied: Boolean!
+    pets: [Pet!]
+}
+
+type Pet {
+    id: ID!
+    name: String!
+    animalType: String!
+    breed: String!
+    age: Int!
+    eircode: String!
+}
+
+type PetStatistics {
+    averageAge: Float!
+    oldestPetAge: Int!
+}
+
+input HouseholdInput {
+    address: String!
+    occupants: Int!
+}
+
